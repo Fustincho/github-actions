@@ -1,0 +1,38 @@
+# workflow name (recommended: same name as the file; non mandatory)
+name: hello_world
+
+# the GitHub event that triggers the workflow
+on:
+  # e.g., - repo updates (push, PR, release)
+  #       - webhooks (branch creation, issues open/resolved, members joining)
+  #       - scheduled (CRON events)
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# a workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # job identifier
+  say-hello:
+    # the type of machine needed to run the job (describes the OS for the VM where the job will run)
+    runs-on: ubuntu-latest
+
+    # 1. steps represent a sequence of tasks that will be executed as part of the job
+    # 2. each step has access to the FS in the Virtual Environment but runs in its own
+    # distinct and separate process
+    steps:
+      # 'uses' identifies an action to use and defines the location of the action
+      # 'actions' are bundles of code used to perform a specific operation
+      #  this action checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
